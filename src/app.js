@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getWordEnding } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,6 +9,11 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+
+  const getItemTitle = item => {
+    const highlighted = `| Выделяли ${item.highlight_count}  ${getWordEnding(item.highlight_count, ['раз', 'раза', 'раз'])}`;
+    return `${item.title} ${item.highlight_count > 0 && highlighted}`;
+  };
 
   return (
     <div className="App">
@@ -27,7 +32,7 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
+                <div className="Item-title">{getItemTitle(item)}</div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>

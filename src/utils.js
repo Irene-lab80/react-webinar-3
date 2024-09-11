@@ -26,3 +26,22 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+
+export const generateCode = (function(count = 0){
+  return () => ++count
+})()
+
+export const getWordEnding = (count, options = ['плейлист', 'плейлиста', 'плейлистов']) => {
+  if (count === 1){
+    return options[0];
+  } 
+
+  if (count < 5) {
+    return options[1];
+  }
+
+  if (count >= 5) {
+    return options[2];
+  }
+}
