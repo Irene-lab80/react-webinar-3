@@ -46,7 +46,10 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      list: [
+        ...this.state.list,
+        { code: generateCode(), title: 'Новая запись', highlight_count: 0 },
+      ],
     });
   }
 
@@ -71,14 +74,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.highlight_count = item.highlight_count + 1;
+          }
+
           item.selected = !item.selected;
         } else {
           item.selected = false;
         }
 
-        if (item.code === last_selected_item?.code) {
-          item.highlight_count = item.highlight_count + 1;
-        }
         return item;
       }),
     });

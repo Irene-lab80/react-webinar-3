@@ -12,7 +12,7 @@ function App({ store }) {
 
   const getItemTitle = item => {
     const highlighted = `| Выделяли ${item.highlight_count}  ${getWordEnding(item.highlight_count, ['раз', 'раза', 'раз'])}`;
-    return `${item.title} ${item.highlight_count > 0 && highlighted}`;
+    return `${item.title} ${item.highlight_count > 0 ? highlighted : ''}`;
   };
 
   return (

@@ -31,16 +31,20 @@ export const generateCode = (function (count = 0) {
   return () => ++count;
 })();
 
-export const getWordEnding = (count, options = ['плейлист', 'плейлиста', 'плейлистов']) => {
-  if (count === 1) {
-    return options[0];
-  }
+export const getWordEnding = (count, options) => {
+  const plural =
+    count % 10 === 1 && count % 100 !== 11
+      ? 0
+      : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)
+        ? 1
+        : 2;
 
-  if (count < 5) {
-    return options[1];
-  }
-
-  if (count >= 5) {
-    return options[2];
+  switch (plural) {
+    case 0:
+      return options[0];
+    case 1:
+      return options[1];
+    case 2:
+      return options[2];
   }
 };
